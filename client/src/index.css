@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid #C9862A;
+  outline-offset: 2px;
+}
+
+.ledger-row {
+  border-bottom: 1px solid rgba(11, 18, 32, 0.08);
+}
