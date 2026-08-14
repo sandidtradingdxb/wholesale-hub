@@ -1,10 +1,9 @@
 import axios from "axios";
 
-// In production, VITE_API_URL points at the Render backend (e.g. https://wholesale-hub.onrender.com).
-// Locally, it's usually unset, so we fall back to a relative "/api" which the Vite dev server proxies.
-const baseURL = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api`
-  : "/api";
+// In production, VITE_API_URL already points at the full API base
+// (e.g. https://wholesale-hub.onrender.com/api). Locally, it's usually
+// unset, so we fall back to a relative "/api" which the Vite dev server proxies.
+const baseURL = import.meta.env.VITE_API_URL || "/api";
 
 const api = axios.create({ baseURL });
 
