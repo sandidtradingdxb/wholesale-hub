@@ -14,7 +14,23 @@ const app = express();
 
 connectDB();
 
-app.use(cors({ origin: process.env.CLIENT_URL || "*" }));
+// Accept the configured CLIENT_URL, its www/non-www counterpart, and localhost for dev.
+const configuredOrigin = process.env.CLIENT_URL;
+const allowedOrigins = configuredOrigin
+  ? [
+      configuredOrigin,
+      configuredOrigin.includes("://www.")
+        ? configuredOrigin.replace("://www.", "://")
+        : configuredOrigin.replace("://", "://www."),
+      "http://localhost:5173",
+    ]
+  : "*";
+
+app.use(
+  cors({
+    origin: allowedOrigins === "*" ? "*" : allowedOrigins,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 
