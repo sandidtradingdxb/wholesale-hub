@@ -70,7 +70,7 @@ export default function App() {
           </div>
         </div>
         <p className="text-center text-xs font-mono text-paper/30 mt-8">
-          Wholesale Hub — trade accounts only
+          {COMPANY.name} — trade accounts only
         </p>
       </footer>
     </div>

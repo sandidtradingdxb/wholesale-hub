@@ -31,7 +31,7 @@ async function seed() {
       category: byslug["smartphones"],
       description: "Mid-range Android smartphone, 6.5in AMOLED, dual SIM, popular reseller SKU.",
       specs: [{ label: "Storage", value: "128GB" }, { label: "RAM", value: "6GB" }],
-      images: [],
+      images: ["https://images.unsplash.com/photo-1672413514634-4781b15fd89e?auto=format&fit=crop&w=800&q=80"],
       moq: 10,
       unit: "pcs",
       priceTiers: [
@@ -49,7 +49,7 @@ async function seed() {
       category: byslug["phone-accessories"],
       description: "Bulk pack of tempered glass protectors, mixed sizes for common phone models.",
       specs: [{ label: "Pack size", value: "100 units" }],
-      images: [],
+      images: ["https://images.unsplash.com/photo-1567428486597-8c5328fd3816?auto=format&fit=crop&w=800&q=80"],
       moq: 5,
       unit: "case",
       priceTiers: [
@@ -65,7 +65,7 @@ async function seed() {
       category: byslug["laptops-desktops"],
       description: "Business-grade laptop, ideal for corporate bulk orders and refurb resellers.",
       specs: [{ label: "CPU", value: "Intel i5 12th gen" }, { label: "RAM", value: "16GB" }],
-      images: [],
+      images: ["https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80"],
       moq: 5,
       unit: "pcs",
       priceTiers: [
@@ -82,7 +82,7 @@ async function seed() {
       category: byslug["computer-accessories"],
       description: "HDMI, USB 3.0 x3, SD/microSD, PD passthrough. Popular laptop bundle add-on.",
       specs: [],
-      images: [],
+      images: ["https://images.unsplash.com/photo-1616578273461-3a99ce422de6?auto=format&fit=crop&w=800&q=80"],
       moq: 20,
       unit: "pcs",
       priceTiers: [
@@ -98,7 +98,7 @@ async function seed() {
       category: byslug["cameras"],
       description: "24MP APS-C mirrorless body, popular with mid-tier photography retailers.",
       specs: [{ label: "Sensor", value: "24MP APS-C" }],
-      images: [],
+      images: ["https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"],
       moq: 3,
       unit: "pcs",
       priceTiers: [
@@ -115,7 +115,7 @@ async function seed() {
       category: byslug["camera-accessories"],
       description: "Lightweight aluminum tripods, ball head, carry case included per unit.",
       specs: [],
-      images: [],
+      images: ["https://images.unsplash.com/photo-1594147216879-97803adfb44d?auto=format&fit=crop&w=800&q=80"],
       moq: 2,
       unit: "carton",
       priceTiers: [

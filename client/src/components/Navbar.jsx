@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { COMPANY } from "../config/company";
 
 const VERTICALS = [
   { slug: "mobile", label: "Mobile" },
@@ -15,7 +16,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-ink text-paper border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         <Link to="/" className="font-display font-700 text-lg tracking-tight flex items-center gap-2">
-          <span className="text-copper">◆</span> WHOLESALE HUB
+          <span className="text-copper">◆</span> {COMPANY.name.toUpperCase()}
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 font-mono text-sm uppercase tracking-wide">

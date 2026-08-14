@@ -1,4 +1,4 @@
-# Wholesale Hub
+# Trinity Plus Trading LLC — Wholesale Platform
 
 A B2B wholesale ecommerce platform for **mobile**, **computer**, and **camera** electronics
 and accessories. Guests can browse the catalog, but wholesale pricing and ordering stay
@@ -67,7 +67,7 @@ cp .env.example .env
 ```
 
 Edit `.env`:
-- `MONGO_URI` — mongodb+srv://sandidtradingdxb_db_user:<db_password>@cluster0.gxnpmuc.mongodb.net/?appName=Cluster0
+- `MONGO_URI` — your MongoDB Atlas (or local) connection string
 - `JWT_SECRET` — any long random string
 - `ADMIN_EMAIL` / `ADMIN_PASSWORD` — credentials for your first admin login
 
