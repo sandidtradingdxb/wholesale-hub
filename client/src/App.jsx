@@ -10,6 +10,7 @@ import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Terms from "./pages/Terms";
+import Policies from "./pages/Policies";
 import { COMPANY } from "./config/company";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/policies" element={<Policies />} />
           <Route
             path="/admin"
             element={
@@ -72,6 +74,11 @@ export default function App() {
             <p>
               <Link to="/terms" className="hover:text-copper-light transition">
                 Terms &amp; Conditions →
+              </Link>
+            </p>
+            <p>
+              <Link to="/policies" className="hover:text-copper-light transition">
+                Policies →
               </Link>
             </p>
           </div>
