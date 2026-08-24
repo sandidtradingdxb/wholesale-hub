@@ -7,5 +7,6 @@ export const COMPANY = {
   country: "United Arab Emirates",
   phoneDisplay: "+971 58 927 3218",
   phoneTel: "+971589273218", // no spaces, used for tel: and wa.me links
+  email: "Tradingtrinityplus@gmail.com",
   currency: "AED",
 };

@@ -22,6 +22,14 @@ export default function Contact() {
             <dd>{COMPANY.city}, {COMPANY.country}</dd>
           </div>
           <div>
+            <dt className="text-ink/50 uppercase text-xs mb-1">Email</dt>
+            <dd>
+              <a href={`mailto:${COMPANY.email}`} className="hover:text-copper transition">
+                {COMPANY.email}
+              </a>
+            </dd>
+          </div>
+          <div>
             <dt className="text-ink/50 uppercase text-xs mb-1">Phone</dt>
             <dd>
               <a href={`tel:${COMPANY.phoneTel}`} className="hover:text-copper transition">

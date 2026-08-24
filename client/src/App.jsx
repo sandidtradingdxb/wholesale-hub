@@ -41,6 +41,7 @@ export default function App() {
       <footer className="border-t border-ink/10 bg-ink text-paper/70 py-10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-6 text-sm">
           <div>
+            <img src="/logo.png" alt={COMPANY.name} className="h-10 w-auto bg-white rounded-lg px-2 py-1 mb-3" />
             <p className="font-display font-600 text-paper text-base mb-2">{COMPANY.name.toUpperCase()}</p>
             <p>{COMPANY.addressLine1}</p>
             <p>{COMPANY.city}, {COMPANY.country}</p>
@@ -54,6 +55,11 @@ export default function App() {
             <p>
               <a href={`tel:${COMPANY.phoneTel}`} className="hover:text-copper-light transition">
                 {COMPANY.phoneDisplay}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${COMPANY.email}`} className="hover:text-copper-light transition">
+                {COMPANY.email}
               </a>
             </p>
             <p>

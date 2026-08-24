@@ -15,8 +15,10 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-ink text-paper border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-        <Link to="/" className="font-display font-700 text-lg tracking-tight flex items-center gap-2">
-          <span className="text-copper">◆</span> {COMPANY.name.toUpperCase()}
+        <Link to="/" className="flex items-center gap-2">
+          <div className="bg-white rounded-lg px-3 py-1.5 flex items-center">
+            <img src="/logo.png" alt={COMPANY.name} className="h-9 w-auto" />
+          </div>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 font-mono text-sm uppercase tracking-wide">
