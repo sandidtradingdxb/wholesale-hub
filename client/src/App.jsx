@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Terms from "./pages/Terms";
 import { COMPANY } from "./config/company";
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
           <Route
             path="/admin"
             element={
@@ -65,6 +67,11 @@ export default function App() {
             <p>
               <Link to="/contact" className="hover:text-copper-light transition">
                 Contact page →
+              </Link>
+            </p>
+            <p>
+              <Link to="/terms" className="hover:text-copper-light transition">
+                Terms &amp; Conditions →
               </Link>
             </p>
           </div>
