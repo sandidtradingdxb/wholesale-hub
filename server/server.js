@@ -4,13 +4,30 @@ const cors = require("cors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 
-const authRoutes = require("./routes/auth");
-const productRoutes = require("./routes/products");
-const categoryRoutes = require("./routes/categories");
-const quoteRoutes = require("./routes/quotes");
-const adminRoutes = require("./routes/admin");
-const uploadRoutes = require("./routes/uploads");
-const contactRoutes = require("./routes/contact");
+// Loads a route file if it exists; if it's missing (e.g. a file didn't get
+// deployed), logs a clear warning and returns a harmless placeholder router
+// instead of crashing the entire server on startup.
+function safeRequireRoute(path) {
+  try {
+    return require(path);
+  } catch (err) {
+    if (err.code === "MODULE_NOT_FOUND") {
+      console.error(`⚠️  Route file missing: ${path} — that feature will 404 until it's added back.`);
+      const placeholder = express.Router();
+      placeholder.use((req, res) => res.status(503).json({ message: `This feature is temporarily unavailable (${path} not deployed).` }));
+      return placeholder;
+    }
+    throw err; // real bugs in the file itself should still fail loudly
+  }
+}
+
+const authRoutes = safeRequireRoute("./routes/auth");
+const productRoutes = safeRequireRoute("./routes/products");
+const categoryRoutes = safeRequireRoute("./routes/categories");
+const quoteRoutes = safeRequireRoute("./routes/quotes");
+const adminRoutes = safeRequireRoute("./routes/admin");
+const uploadRoutes = safeRequireRoute("./routes/uploads");
+const contactRoutes = safeRequireRoute("./routes/contact");
 
 const app = express();
 
