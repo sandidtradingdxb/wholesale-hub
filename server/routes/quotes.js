@@ -2,6 +2,7 @@ const express = require("express");
 const QuoteRequest = require("../models/QuoteRequest");
 const Product = require("../models/Product");
 const { requireAuth, requireApprovedBuyer } = require("../middleware/auth");
+const { sendNotification } = require("../utils/mailer");
 
 const router = express.Router();
 
@@ -40,6 +41,26 @@ router.post("/", requireAuth, requireApprovedBuyer, async (req, res) => {
       items: lineItems,
       notes,
       estimatedTotal,
+    });
+
+    const itemsText = lineItems
+      .map((li) => `${li.productName} (${li.sku}) — ${li.quantity} × AED ${li.unitPriceAtRequest.toFixed(2)}`)
+      .join("\n");
+    const itemsHtml = lineItems
+      .map((li) => `<li>${li.productName} (${li.sku}) — ${li.quantity} × AED ${li.unitPriceAtRequest.toFixed(2)}</li>`)
+      .join("");
+
+    sendNotification({
+      subject: `New quote request — ${req.user.businessName || req.user.fullName}`,
+      html: `
+        <h2>New quote request</h2>
+        <p><strong>Buyer:</strong> ${req.user.fullName} (${req.user.businessName || "-"})</p>
+        <p><strong>Email:</strong> ${req.user.email}</p>
+        <ul>${itemsHtml}</ul>
+        <p><strong>Estimated total:</strong> AED ${estimatedTotal.toFixed(2)}</p>
+        ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ""}
+      `,
+      text: `New quote request\n\nBuyer: ${req.user.fullName} (${req.user.businessName || "-"})\nEmail: ${req.user.email}\n\n${itemsText}\n\nEstimated total: AED ${estimatedTotal.toFixed(2)}\n${notes ? `\nNotes: ${notes}` : ""}`,
     });
 
     res.status(201).json({ quote, message: "Quote request submitted. Our team will confirm pricing and availability shortly." });

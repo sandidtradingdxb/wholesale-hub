@@ -9,6 +9,8 @@ const productRoutes = require("./routes/products");
 const categoryRoutes = require("./routes/categories");
 const quoteRoutes = require("./routes/quotes");
 const adminRoutes = require("./routes/admin");
+const uploadRoutes = require("./routes/uploads");
+const contactRoutes = require("./routes/contact");
 
 const app = express();
 
@@ -31,7 +33,9 @@ app.use(
     origin: allowedOrigins === "*" ? "*" : allowedOrigins,
   })
 );
-app.use(express.json());
+// Raised from the default 100kb so a product with a couple of embedded
+// base64 photos (from the admin upload feature) can still be saved.
+app.use(express.json({ limit: "15mb" }));
 app.use(morgan("dev"));
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
@@ -41,6 +45,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/quotes", quoteRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/uploads", uploadRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Fallback error handler
 app.use((err, req, res, next) => {

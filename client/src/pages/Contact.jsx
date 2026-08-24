@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { COMPANY } from "../config/company";
+import api from "../api/client";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -64,23 +65,38 @@ export default function Contact() {
 }
 
 function ContactForm() {
-  const [form, setForm] = useState({ name: "", company: "", message: "" });
+  const [form, setForm] = useState({ name: "", company: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // No backend endpoint wired up yet — this routes the message straight to WhatsApp
-    // pre-filled, so it works out of the box. Swap for a POST to /api/contact later
-    // if you want inquiries logged in the database instead.
+    setError("");
+    setSending(true);
+    try {
+      await api.post("/contact", form);
+      setSent(true);
+    } catch (err) {
+      setError(err.response?.data?.message || "Couldn't send your message — please try WhatsApp instead.");
+    } finally {
+      setSending(false);
+    }
+  }
+
+  function openWhatsApp() {
     const text = encodeURIComponent(
       `New inquiry from ${form.name}${form.company ? ` (${form.company})` : ""}:\n${form.message}`
     );
     window.open(`https://wa.me/${COMPANY.phoneTel.replace("+", "")}?text=${text}`, "_blank");
-    setSent(true);
   }
 
   if (sent) {
-    return <p className="text-teal text-sm font-mono">Opened WhatsApp with your message — send it over there to finish.</p>;
+    return (
+      <p className="text-teal text-sm font-mono">
+        Thanks — your message has been sent. We'll be in touch soon.
+      </p>
+    );
   }
 
   return (
@@ -103,6 +119,15 @@ function ContactForm() {
         />
       </div>
       <div>
+        <label className="font-mono text-xs uppercase text-ink/50">Email (optional)</label>
+        <input
+          type="email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          className="w-full border border-ink/20 rounded px-3 py-2 mt-1 focus:border-copper outline-none"
+        />
+      </div>
+      <div>
         <label className="font-mono text-xs uppercase text-ink/50">Message</label>
         <textarea
           required
@@ -112,11 +137,23 @@ function ContactForm() {
           className="w-full border border-ink/20 rounded px-3 py-2 mt-1 focus:border-copper outline-none"
         />
       </div>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
       <button
         type="submit"
-        className="w-full bg-copper hover:bg-copper-light text-ink font-medium py-3 rounded transition"
+        disabled={sending}
+        className="w-full bg-copper hover:bg-copper-light text-ink font-medium py-3 rounded transition disabled:opacity-50"
       >
-        Send via WhatsApp
+        {sending ? "Sending..." : "Send message"}
+      </button>
+
+      <button
+        type="button"
+        onClick={openWhatsApp}
+        className="w-full border border-ink/20 hover:border-copper py-2.5 rounded text-sm transition"
+      >
+        Or send via WhatsApp instead
       </button>
     </form>
   );

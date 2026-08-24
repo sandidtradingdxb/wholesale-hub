@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const { requireAuth } = require("../middleware/auth");
+const { sendNotification } = require("../utils/mailer");
 
 const router = express.Router();
 
@@ -55,6 +56,21 @@ router.post(
       });
 
       const token = signToken(user);
+
+      sendNotification({
+        subject: `New wholesale account application — ${user.businessName}`,
+        html: `
+          <h2>New account application</h2>
+          <p><strong>Full name:</strong> ${user.fullName}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <p><strong>Business name:</strong> ${user.businessName}</p>
+          <p><strong>Business type:</strong> ${user.businessType || "-"}</p>
+          <p>This account is pending approval — review it in the admin panel.</p>
+        `,
+        text: `New account application\n\nFull name: ${user.fullName}\nEmail: ${user.email}\nPhone: ${user.phone}\nBusiness name: ${user.businessName}\nBusiness type: ${user.businessType || "-"}\n\nThis account is pending approval — review it in the admin panel.`,
+      });
+
       res.status(201).json({
         token,
         user: publicUser(user),
