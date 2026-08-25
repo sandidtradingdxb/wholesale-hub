@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/client";
 import ProductCard from "../components/ProductCard";
+import PaymentBadges from "../components/PaymentBadges";
 
 const VERTICAL_INFO = [
   { slug: "mobile", label: "Mobile", desc: "Smartphones, cases, chargers, screen protectors" },
@@ -75,6 +76,14 @@ export default function Home() {
           {featured.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
+        </div>
+      </section>
+
+      {/* We accept */}
+      <section className="border-t border-ink/10 bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          <p className="font-mono text-xs uppercase tracking-wide text-ink/50">We accept</p>
+          <PaymentBadges />
         </div>
       </section>
     </div>
